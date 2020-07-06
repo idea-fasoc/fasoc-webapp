@@ -1,14 +1,38 @@
 /* globals fetch */
 var update = document.getElementById('update')
 var del = document.getElementById('delete')
+const button = document.getElementById('submit');
+
+
+  $('#dtBasicExample-table-id').mdbEditor({
+    headerLength: 6,
+    evenTextColor: '#000',
+    oddTextColor: '#000',
+    bgEvenColor: '',
+    bgOddColor: '',
+    thText: '',
+    thBg: '',
+    modalEditor: false,
+    bubbleEditor: false,
+    contentEditor: false,
+    rowEditor: false
+    }); 
+
+
+    console.log('Client-side code running');
+
+
+button.addEventListener('click', function(e) {
+      console.log('button was clicked');
+    });    
 
 update.addEventListener('click', function () {
   fetch('digikey', {
     method: 'put',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({
-      'name': 'Darth Vader',
-      'quote': 'I find your lack of faith disturbing.'
+      'name': '',
+      'quote': ''
     })
   })
   .then(response => {
@@ -26,7 +50,7 @@ del.addEventListener('click', function () {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      'name': 'Darth Vader'
+      'name': ''
     })
   }).then(function (response) {
     window.location.reload()

@@ -5,7 +5,7 @@
   <link rel="icon" type="image/png" href="assets/img/favicon.ico">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-  <title>Fasoc - ICs</title>
+  <title>Fasoc - Capacitors</title>
 
   
   <link rel="stylesheet" href="fresh-bootstrap-table.css">
@@ -37,8 +37,8 @@
       </h1>
       <nav class="navbar navbar-light bg-light">
         <form class="form-inline">
-          <a href="./" class="btn btn-primary">Integrated Circuits</a>
-          <a href="/capacitors" class="btn btn-outline-secondary">Capacitors</a>
+          <a href="./" class="btn btn-outline-secondary">Integrated Circuits</a>
+          <a href="/capacitors" class=" btn btn-primary">Capacitors</a>
         </form>
       </nav> 
 
@@ -50,60 +50,27 @@
 
     <table id="fresh-table" class="table" data-show-export="true">
     <thead>
-        <tr>
-          <th data-field="description" data-sortable="true">Description</th>
-          <th data-field="part number" data-sortable="true">Digi-Key Part Number</th>
-          <th data-field="datasheets" data-sortable="true">Datasheets</th>
-          <th data-field="subcategory" data-sortable="true">Subcategory</th>
-          <!-- <th class="th-sm">Number of Bits -->
-          <th data-field="min temp" data-sortable="true"> min Operating Temp (°C)</th>
-          <!-- <th class="th-sm">Sampling Rate -->
-          <th data-field="max temp" data-sortable="true"> max Operating Temp (°C)</th>
-          <th data-field="min voltage" data-sortable="true"> min Voltage - Supply (V)</th>
-          <th data-field="max voltage" data-sortable="true"> max Voltage - Supply (V)</th>                        
-        </tr>
-      </thead>
-      <tbody>            
-          <% if (digikey != null) {%>              
-            <% if (digikey.categ == "clock-timing-application-specific") {%> 
-              <% console.log("This is a default category is:", digikey.categ) %></a>
-              <% for(var i=0; i <digikey.allinfo.length; i++) {%>
-                <tr>
-                  <td><%= digikey.allinfo[i]['Description'] %></td>
-                  <td><%= digikey.allinfo[i]['Digi-Key Part Number'] %></td>
-                  <td><%= digikey.allinfo[i]['Datasheets'] %></td>
-                  <td><%= digikey.allinfo[i]['Subcategory'] %></td>
-                  <td><%= digikey.allinfo[i]['min Operating Temp (°C)'] %></td>
-                  <td><%= digikey.allinfo[i]['max Operating Temp (°C)'] %></td>
-                  <td><%= digikey.allinfo[i]['min Voltage - Supply (V)'] %></td>
-                  <td><%= digikey.allinfo[i]['max Voltage - Supply (V)'] %></td>
-                    </tr>
-              <% } %>
-              <%} else { %>
-              <% console.log("This is a search category is:", digikey.categ) %></a>
-              <% for(var i=0; i <digikey.allinfosearch.length; i++) {%>
-                <tr>
-                  <td><%= digikey.allinfosearch[i]['Description'] %></td>
-                  <td><%= digikey.allinfosearch[i]['Digi-Key Part Number'] %></td>
-                  <td><%= digikey.allinfosearch[i]['Datasheets'] %></td>
-                  <td><%= digikey.allinfosearch[i]['Subcategory'] %></td>
-                  <td><%= digikey.allinfosearch[i]['min Operating Temp (°C)'] %></td>
-                  <td><%= digikey.allinfosearch[i]['max Operating Temp (°C)'] %></td>
-                  <td><%= digikey.allinfosearch[i]['min Voltage - Supply (V)'] %></td>
-                  <td><%= digikey.allinfosearch[i]['max Voltage - Supply (V)'] %></td>
-                    </tr>
-              <% } %>
+            <th data-field="description" data-sortable="true">Description</th>
+            <th data-field="capacitance" data-sortable="true">Capacitance</th>
+            <th ata-field="Rated-voltage" data-sortable="true">Rated-voltage</th>
+            <th ata-field="temperature-coefficient" data-sortable="true">temperature-coefficient</th>
+            <!-- <th data-field="actions" data-formatter="operateFormatter" data-events="operateEvents">Actions</th> -->
+    </thead>
+    <tbody>            
+        <% if (capacitors != null) {%>              
+            <% for(var i=0; i <capacitors.length; i++) {%>
+            <tr>
+                <td><%= capacitors[i]['description'] %></td>
+                <td><%= capacitors[i]['capacitance'] %></td>
+                <td><%= capacitors[i]['rated-voltage'] %></td>
+                <td><%= capacitors[i]['temperature-coefficient'] %></td>
+            </tr>
             <% } %>
-            <% } %>
-      </tbody>
+          <% } %>
+    </tbody>
     </table>
   </div>
 </div>
-
-
-
-
-<script src="main.js"></script>
 <script>
   var $table = $('#fresh-table')
 

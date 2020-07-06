@@ -18,6 +18,21 @@
         var table = $('#dtBasicExample').DataTable( {
             orderCellsTop: true,
             fixedHeader: true,
-            pageLength: 50
+            pageLength: 50,
+            dom: 'Bfrtip',
+            exportDataType: $(this).val(),
+            exportTypes: ['json', 'xml', 'csv', 'txt', 'sql', 'excel', 'pdf'],
+            columnDefs: [
+                {
+                    targets: 1,
+                    className: 'noVis'
+                }
+            ],
+            buttons: [
+                {
+                    extend: 'colvis',
+                    columns: ':not(.noVis)'
+                }
+            ]
         } );
-    } );    
+    } );        
