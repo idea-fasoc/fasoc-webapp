@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
   <link href="http://fonts.googleapis.com/css?family=Roboto:400,700,300" rel="stylesheet" type="text/css">
   <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://unpkg.com/tableexport.jquery.plugin/libs/jsPDF/jspdf.min.js"></script>
 <script src="https://unpkg.com/tableexport.jquery.plugin/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js"></script>
 <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
@@ -26,6 +27,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="https://unpkg.com/bootstrap-table/dist/bootstrap-table.js"></script>
   <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+
+  
   <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 
@@ -34,7 +37,6 @@
 
 <!-- (Optional) Latest compiled and minified JavaScript translation files -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
-
 
 </head>
 <body>
@@ -82,12 +84,12 @@
           <!-- <th class="th-sm">Sampling Rate -->
           <th data-field="max temp" data-sortable="true"> max Operating Temp (°C)</th>
           <th data-field="min voltage" data-sortable="true"> min Voltage - Supply (V)</th>
-          <th data-field="max voltage" data-sortable="true"> max Voltage - Supply (V)</th>                        
+          <th data-field="max voltage" data-sortable="true"> max Voltage - Supply (V)</th>                   
         </tr>
       </thead>
       <tbody>            
           <% if (digikey != null) {%>              
-            <% if (digikey.categ == "clock-timing-application-specific") {%> 
+            <% if (digikey.categ == "clock-timing-clock-buffers-drivers") {%> 
               <% console.log("This is a default category is:", digikey.categ) %></a>
               <% for(var i=0; i <digikey.allinfo.length; i++) {%>
                 <tr>
@@ -99,7 +101,7 @@
                   <td><%= digikey.allinfo[i]['max Operating Temp (°C)'] %></td>
                   <td><%= digikey.allinfo[i]['min Voltage - Supply (V)'] %></td>
                   <td><%= digikey.allinfo[i]['max Voltage - Supply (V)'] %></td>
-                    </tr>
+                </tr>
               <% } %>
               <%} else { %>
               <% console.log("This is a search category is:", digikey.categ) %></a>
@@ -107,13 +109,13 @@
                 <tr>
                   <td><%= digikey.allinfosearch[i]['Description'] %></td>
                   <td><%= digikey.allinfosearch[i]['Digi-Key Part Number'] %></td>
-                  <td><%= digikey.allinfosearch[i]['Datasheets'] %></td>
+                  <td><a href="<%=digikey.allinfosearch[i]['Datasheets']%>" role="button"><%= digikey.allinfosearch[i]['Datasheets'] %></a></td> 
                   <td><%= digikey.allinfosearch[i]['Subcategory'] %></td>
                   <td><%= digikey.allinfosearch[i]['min Operating Temp (°C)'] %></td>
                   <td><%= digikey.allinfosearch[i]['max Operating Temp (°C)'] %></td>
                   <td><%= digikey.allinfosearch[i]['min Voltage - Supply (V)'] %></td>
                   <td><%= digikey.allinfosearch[i]['max Voltage - Supply (V)'] %></td>
-                    </tr>
+                </tr>
               <% } %>
             <% } %>
             <% } %>
@@ -121,9 +123,6 @@
     </table>
   </div>
 </div>
-
-
-
 
 <script src="main.js"></script>
 <script>
@@ -145,6 +144,7 @@
       })
     }
   }
+  
 
   function operateFormatter(value, row, index) {
     return [
@@ -159,6 +159,11 @@
       '</a>'
     ].join('')
   }
+
+// initalize boostrap tooltip
+  $(function () {
+      $("[data-toggle='tooltip']").tooltip();
+  });
 
   $(function () {
     $table.bootstrapTable({

@@ -75,12 +75,12 @@ var cat;
 app.get('/', function(req, res) {
   cat =  req.query.selectpicker;
   console.log("value of selectPicket :", cat)
-  if ((cat == undefined) || (cat == "clock-timing-application-specific"))
+  if ((cat == undefined) || (cat == "clock-timing-clock-buffers-drivers"))
   {
-    db.collection('digikey').aggregate([ { $match : {"Subcategory" : "clock-timing-application-specific"} } ]).toArray((err, result) => {
+    db.collection('digikey').aggregate([ { $match : {"Subcategory" : "clock-timing-clock-buffers-drivers"} } ]).toArray((err, result) => {
       all_info.allinfo = result;
     })
-    all_info.categ = "clock-timing-application-specific";
+    all_info.categ = "clock-timing-clock-buffers-drivers";
     if (all_info.allinfo != null)
     {
       console.log("all_info.cat :", all_info.categ)
@@ -120,7 +120,7 @@ app.get('/capacitors', function(req, res) {
     console.log("value of selectpicker" , cat)
     console.log("1st time page with all results")
     db.collection('digikey').aggregate(
-      [ { $match : {"Subcategory" : "clock-timing-application-specific"} } ]
+      [ { $match : {"Subcategory" : "clock-timing-clock-buffers-drivers"} } ]
   ).toArray((err, result) => {
     //if (err) return console.log(err)
     all_info.allinfo = result;
