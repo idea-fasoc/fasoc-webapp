@@ -93,7 +93,7 @@
                 <tr>
                   <td><%= digikey.allinfo[i]['Description'] %></td>
                   <td><%= digikey.allinfo[i]['Digi-Key Part Number'] %></td>
-                  <td><%= digikey.allinfo[i]['Datasheets'] %></td>
+                  <td><a href="<%=digikey.allinfo[i]['Datasheets']%>" role="button"><%= digikey.allinfo[i]['Datasheets'] %></a></td> 
                   <td><%= digikey.allinfo[i]['Subcategory'] %></td>
                   <td><%= digikey.allinfo[i]['min Operating Temp (°C)'] %></td>
                   <td><%= digikey.allinfo[i]['max Operating Temp (°C)'] %></td>
