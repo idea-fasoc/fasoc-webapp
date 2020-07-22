@@ -5,7 +5,7 @@
   <link rel="icon" type="image/png" href="assets/img/favicon.ico">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-  <title>Fasoc - ICs</title>
+  <title>Fasoc - Search results</title>
 
   
   <link rel="stylesheet" href="fresh-bootstrap-table.css">
@@ -47,27 +47,14 @@
       </h1>
       <nav class="navbar navbar-light bg-light">
         <form class="form-inline">
-          <a href="./" class="btn btn-primary">Integrated Circuits</a>
-          <a href="/capacitors" class="btn btn-outline-secondary">Capacitors</a>
-          <a href="/search-get" class=" btn btn-secondary">Advanced Search</a>
+          <a href="./" class="btn btn-secondary">Integrated Circuits</a>
+          <a href="/capacitors" class="btn btn-secondary">Capacitors</a>
+          <a href="/search-get" class=" btn btn-primary">Advanced Search</a>
         </form>
       </nav> 
-      <div>
-      <form id="tableForm" action="/" method="get">
-        <select class="selectpicker" data-width="auto" data-style="btn btn-outline-primary" name="selectpicker" title="Choose a subcategory..." data-live-search="true">
-          <% if (digikey.categories != null) {%>
-                <% digikey.categories.forEach(function(el, index){ %>
-                <option data-tokens="<%= el %>"><%= el %></option>
-                <% }) %>
-              <% } %>   
-        </select>
-        <!-- <input type="submit" value="Submit"/> -->
-        <button class="btn btn-primary btn-sm" type="submit" id="submit">Submit</button>
-      </form>
-    </div>
     <br>
     <br>
-  <div class="fresh-table toolbar-color-azure full-screen-table">
+  <div class="fresh-table toolbar-color-orange full-screen-table">
   <!--
     Available colors for the full background: full-color-blue, full-color-azure, full-color-green, full-color-red, full-color-orange
     Available colors only for the toolbar: toolbar-color-blue, toolbar-color-azure, toolbar-color-green, toolbar-color-red, toolbar-color-orange
@@ -85,40 +72,25 @@
           <!-- <th class="th-sm">Sampling Rate -->
           <th data-field="max temp" data-sortable="true"> max Operating Temp (°C)</th>
           <th data-field="min voltage" data-sortable="true"> min Voltage - Supply (V)</th>
-          <th data-field="max voltage" data-sortable="true"> max Voltage - Supply (V)</th>                   
+          <th data-field="max voltage" data-sortable="true"> max Voltage - Supply (V)</th>
+          <th data-field="current" data-sortable="true"> current - Input Bias (mA)</th>
         </tr>
       </thead>
       <tbody>            
-          <% if (digikey != null) {%>              
-            <% if (digikey.categ == "nothing") {%> 
-              <% console.log("This is a default category is:", digikey.categ) %></a>
-              <% for(var i=0; i <digikey.allinfo.length; i++) {%>
+          <% if (search_result != null) {%>              
+              <% for(var i=0; i <search_result.length; i++) {%>
                 <tr>
-                  <td><%= digikey.allinfo[i]['Description'] %></td>
-                  <td><%= digikey.allinfo[i]['Digi-Key Part Number'] %></td>
-                  <td><a href="<%=digikey.allinfo[i]['Datasheets']%>" role="button"><%= digikey.allinfo[i]['Datasheets'] %></a></td> 
-                  <td><%= digikey.allinfo[i]['Subcategory'] %></td>
-                  <td><%= digikey.allinfo[i]['min Operating Temp (°C)'] %></td>
-                  <td><%= digikey.allinfo[i]['max Operating Temp (°C)'] %></td>
-                  <td><%= digikey.allinfo[i]['min Voltage - Supply (V)'] %></td>
-                  <td><%= digikey.allinfo[i]['max Voltage - Supply (V)'] %></td>
+                  <td><%= search_result[i]['Description'] %></td>
+                  <td><%= search_result[i]['Digi-Key Part Number'] %></td>
+                  <td><a href="<%=search_result[i]['Datasheets']%>" role="button"><%= search_result[i]['Datasheets'] %></a></td> 
+                  <td><%= search_result[i]['Subcategory'] %></td>
+                  <td><%= search_result[i]['min Operating Temp (°C)'] %></td>
+                  <td><%= search_result[i]['max Operating Temp (°C)'] %></td>
+                  <td><%= search_result[i]['min Voltage - Supply (V)'] %></td>
+                  <td><%= search_result[i]['max Voltage - Supply (V)'] %></td>
+                  <td><%= search_result[i]['Current - Input Bias (mA)'] %></td>
                 </tr>
               <% } %>
-              <%} else { %>
-              <% console.log("This is a search category is:", digikey.categ) %></a>
-              <% for(var i=0; i <digikey.allinfosearch.length; i++) {%>
-                <tr>
-                  <td><%= digikey.allinfosearch[i]['Description'] %></td>
-                  <td><%= digikey.allinfosearch[i]['Digi-Key Part Number'] %></td>
-                  <td><a href="<%=digikey.allinfosearch[i]['Datasheets']%>" role="button"><%= digikey.allinfosearch[i]['Datasheets'] %></a></td> 
-                  <td><%= digikey.allinfosearch[i]['Subcategory'] %></td>
-                  <td><%= digikey.allinfosearch[i]['min Operating Temp (°C)'] %></td>
-                  <td><%= digikey.allinfosearch[i]['max Operating Temp (°C)'] %></td>
-                  <td><%= digikey.allinfosearch[i]['min Voltage - Supply (V)'] %></td>
-                  <td><%= digikey.allinfosearch[i]['max Voltage - Supply (V)'] %></td>
-                </tr>
-              <% } %>
-            <% } %>
             <% } %>
       </tbody>
     </table>
