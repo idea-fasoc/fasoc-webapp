@@ -90,22 +90,20 @@
       </thead>
       <tbody>            
           <% if (digikey != null) {%>              
-            <% if (digikey.categ == "nothing") {%> 
-              <% console.log("This is a default category is:", digikey.categ) %></a>
-              <% for(var i=0; i <digikey.allinfo.length; i++) {%>
+              <% console.log("This is a search category is:", digikey.categ) %></a>
+              <% for(var i=0; i <digikey.allinfosearch.length; i++) {%>
                 <tr>
-                  <td><%= digikey.allinfo[i]['Description'] %></td>
-                  <td><%= digikey.allinfo[i]['Digi-Key Part Number'] %></td>
-                  <td><a href="<%=digikey.allinfo[i]['Datasheets']%>" role="button"><%= digikey.allinfo[i]['Datasheets'] %></a></td> 
-                  <td><%= digikey.allinfo[i]['Subcategory'] %></td>
-                  <td><%= digikey.allinfo[i]['min Operating Temp (°C)'] %></td>
-                  <td><%= digikey.allinfo[i]['max Operating Temp (°C)'] %></td>
-                  <td><%= digikey.allinfo[i]['min Voltage - Supply (V)'] %></td>
-                  <td><%= digikey.allinfo[i]['max Voltage - Supply (V)'] %></td>
+                  <td><%= digikey.allinfosearch[i]['Description'] %></td>
+                  <td><%= digikey.allinfosearch[i]['Digi-Key Part Number'] %></td>
+                  <td><a href="<%=digikey.allinfosearch[i]['Datasheets']%>" role="button"><%= digikey.allinfosearch[i]['Datasheets'] %></a></td> 
+                  <td><%= digikey.allinfosearch[i]['Subcategory'] %></td>
+                  <td><%= digikey.allinfosearch[i]['min Operating Temp (°C)'] %></td>
+                  <td><%= digikey.allinfosearch[i]['max Operating Temp (°C)'] %></td>
+                  <td><%= digikey.allinfosearch[i]['min Voltage - Supply (V)'] %></td>
+                  <td><%= digikey.allinfosearch[i]['max Voltage - Supply (V)'] %></td>
                 </tr>
               <% } %>
-            <% } %>
-            <% } %>
+              <% } %>
       </tbody>
     </table>
   </div>

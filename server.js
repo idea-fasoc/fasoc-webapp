@@ -16,11 +16,12 @@ MongoClient.connect('mongodb+srv://admin:admin@clusterdigikey-dt6y1.mongodb.net/
   {
     console.log("GETTING ALL CATEGORIES")
     all_info.categories = result;
-  })
+  
   db.collection('digikey').find({"Subcategory" : "clock-timing-clock-buffers-drivers"},{ "Subcategory": 1, "min Operating Temp (°C)": 1, "max Operating Temp (°C)":1, "Datasheets":1, "Description":1, "min Voltage - Supply (V)":1, "max Voltage - Supply (V)":1 , "Current - Input Bias (mA)":1, "Category":1}
   ).limit(500).toArray((err, result) => {
     all_info.allinfo = result;
   })
+})
   MongoClient.connect('mongodb+srv://admin:admin@capacitors.khbor.mongodb.net/capacitors?retryWrites=true&w=majority', (err, database) => {
     if (err) return console.log(err)
     db_capacitors = database.db('capacitors')
@@ -43,7 +44,7 @@ MongoClient.connect('mongodb+srv://admin:admin@clusterdigikey-dt6y1.mongodb.net/
   db = database.db('config')
   db.collection('ic_capacitors').distinct("Subcategory", function(err, result)
   {
-    console.log("GETTING ALL CATEGORIES")
+    
     all_info.categories = result;
     console.log("categories", all_info.categories)
   })
@@ -68,33 +69,35 @@ var options = {
 
 
 var cat;
+
 app.get('/', function(req, res) {
+  all_info.categ = "nothing";
+  res.render('index.ejs', {digikey : all_info},);  
+  });
+
+app.get('/category', function(req, res) {
   cat =  req.query.selectpicker;
   console.log("value of selectPicket :", cat)
-  if ((cat == undefined))
-  {
-    all_info.categ = "nothing";
-    if (all_info.allinfo != null)
-    {
-      console.log("all_info.cat :", all_info.categ)
-      console.log("RENDERING default PAGE AFTER ALL OK")  
-      res.render('index.ejs', {digikey : all_info},);
-    }
-  }
-  else
-  {
+  all_info.categ = cat;
+  db.collection('digikey').aggregate([{ $match : {"Subcategory" : cat}}]).toArray((err, result)=> {
+    all_info.allinfosearch = result;
+ 
     //all_info.allinfo = []
+/*     db.collection('digikey').distinct("Subcategory", function(err, result)
+  {
+    console.log("GETTING ALL CATEGORIES for category section")
+    all_info.categories = result;
     db.collection('digikey').aggregate([{ $match : {"Subcategory" : cat}}]).toArray((err, result)=> {
       all_info.allinfosearch = result;
-    })    
-    all_info.categ = cat;
-    if (all_info.allinfosearch)
+    })  
+    })   */
+     if (all_info.allinfosearch)
     {
       console.log("all_info.cat :", all_info.categ)
       console.log("RENDERING search PAGE AFTER ALL OK")  
-      res.render('index.ejs', {digikey : all_info},);
-    }
-  }
+      res.render('category.ejs', {digikey : all_info},);
+    } 
+  })
 });
 
 app.get('/capacitors', function(req, res) {
@@ -355,7 +358,7 @@ console.log(JSON.stringify(conditions))
   }
   db.collection('digikey').distinct("Subcategory", function(err, result)
   {
-    console.log("GETTING ALL CATEGORIES")
+    
     //if (err) return console.log(err)
     all_info.categories = result;
     //if (all_info.allinfo && all_info.categories) 
