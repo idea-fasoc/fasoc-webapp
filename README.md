@@ -18,6 +18,8 @@ The Fasoc CRUD web application is an interface allowing the user to visualize th
 The Databse contains all components for Integrated Circuits category as well as Capacitors.
 
 ### Search Mechanism
+![Image](search.png)
+
 #### Full-text Search
 The Full-text Search allows the user to search a string or a number among all records of the database. The search is performed in RT so the search results will be displayed as soon as the user starts inputing the text.
 
